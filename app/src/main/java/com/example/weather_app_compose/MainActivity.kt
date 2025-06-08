@@ -11,9 +11,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            Weather_app_composeTheme {
+                WeatherScreen()
 
-            }
         }
     }
 }
