@@ -1,4 +1,4 @@
-package com.example.weather_app_compose.weather_component
+package com.example.weather_app_compose.presentaion.weather_component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.weather_app_compose.R
-import com.example.weather_app_compose.data_class.WeatherState
+import com.example.weather_app_compose.logic.entities.WeatherState
 
 
 val weatherStates : List<WeatherState> = listOf(

@@ -1,4 +1,4 @@
-package com.example.weather_app_compose.weather_component
+package com.example.weather_app_compose.presentaion.weather_component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
@@ -38,5 +38,4 @@ fun CurrentWeather(){
     Spacer(Modifier.height(12.dp))
 
     MinMaxDegree()
-
 }

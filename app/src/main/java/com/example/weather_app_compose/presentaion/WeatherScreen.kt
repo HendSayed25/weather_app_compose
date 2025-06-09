@@ -1,4 +1,4 @@
-package com.example.weather_app_compose
+package com.example.weather_app_compose.presentaion
 
 import Next7DaysForecastCard
 import androidx.compose.foundation.background
@@ -23,12 +23,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weather_app_card.WeatherForecastCard
+import com.example.weather_app_compose.R
 import com.example.weather_app_compose.ui.theme.skyBlue
 import com.example.weather_app_compose.ui.theme.textColorTitle
 import com.example.weather_app_compose.ui.theme.white
-import com.example.weather_app_compose.weather_component.CurrentWeather
-import com.example.weather_app_compose.weather_component.LocationDesign
-import com.example.weather_app_compose.weather_component.WeatherStateContent
+import com.example.weather_app_compose.presentaion.weather_component.CurrentWeather
+import com.example.weather_app_compose.presentaion.weather_component.LocationDesign
+import com.example.weather_app_compose.presentaion.weather_component.WeatherStateContent
 
 @Preview
 @Composable

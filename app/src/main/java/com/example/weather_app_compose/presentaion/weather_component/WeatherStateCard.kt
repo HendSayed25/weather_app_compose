@@ -1,4 +1,4 @@
-package com.example.weather_app_compose.weather_component
+package com.example.weather_app_compose.presentaion.weather_component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -16,7 +16,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weather_app_compose.data_class.WeatherState
+import com.example.weather_app_compose.logic.entities.WeatherState
 import com.example.weather_app_compose.ui.theme.overlayColor
 import com.example.weather_app_compose.ui.theme.valueOfCard
 import com.example.weather_app_compose.ui.theme.white

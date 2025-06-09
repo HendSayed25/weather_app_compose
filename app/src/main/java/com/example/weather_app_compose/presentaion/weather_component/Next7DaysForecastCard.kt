@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.weather_app_compose.R
 import com.example.weather_app_compose.ui.theme.lightGray
 import com.example.weather_app_compose.ui.theme.white
-import com.example.weather_app_compose.weather_component.DailyForecastItem
+import com.example.weather_app_compose.presentaion.weather_component.DailyForecastItem
 
 @Composable
 fun Next7DaysForecastCard() {
