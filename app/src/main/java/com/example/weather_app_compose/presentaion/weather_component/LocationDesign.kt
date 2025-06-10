@@ -16,7 +16,7 @@ import com.example.weather_app_compose.ui.theme.darkGray
 
 @Composable
 fun LocationDesign(){
-    Row(modifier = Modifier.padding(start = 133.dp, end = 133.dp, top = 64.dp, bottom = 12.dp)){
+    Row(modifier = Modifier.padding(start = 133.dp, end = 133.dp, top = 50.dp, bottom = 12.dp)){
 
         Image(
             painter = painterResource(R.drawable.location),

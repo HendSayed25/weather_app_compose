@@ -4,5 +4,5 @@ import com.example.weather_app_compose.data.remote.response.WeatherResponse
 import com.example.weather_app_compose.logic.entities.Location
 
 interface IWeatherRepository {
-    fun getWeatherByLocation(location : Location) : WeatherResponse
+    suspend fun getWeatherByLocation(location : Location) : WeatherResponse?
 }

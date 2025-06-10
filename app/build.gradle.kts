@@ -3,11 +3,19 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    id("kotlin-parcelize")
+
 }
 
 android {
     namespace = "com.example.weather_app_compose"
     compileSdk = 35
+
+    packagingOptions {
+        resources {
+            excludes += "/META-INF/INDEX.LIST"
+        }
+    }
 
     defaultConfig {
         applicationId = "com.example.weather_app_compose"
@@ -40,8 +48,11 @@ android {
     }
 }
 
+val ktorVersion = "2.3.13"
+
 dependencies {
 
+    // AndroidX + Compose
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -50,24 +61,31 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-
     implementation(libs.coil.compose)
-    implementation(libs.androidx.hilt.navigation.fragment)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
-
+    // Dependency Injection - Koin
     implementation(libs.koin.core)
+
+    // DateTime
     implementation(libs.kotlinx.datetime)
-    implementation(libs.kotlinx.serialization.json)
 
-    //ktor
-    val ktorVersion = "2.3.13"
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.cio)
-    implementation(libs.logback.classic)
+    // ✅ Ktor 2.3.13 with kotlinx-serialization-json 1.8.0
+    implementation("io.ktor:ktor-client-core:$ktorVersion")
+    implementation("io.ktor:ktor-client-cio:$ktorVersion")
+    implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+
+   // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
+    // Logger
+    implementation("ch.qos.logback:logback-classic:1.4.14")
+
+    //GPS
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 
 
-
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

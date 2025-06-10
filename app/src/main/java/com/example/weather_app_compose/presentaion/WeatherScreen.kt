@@ -1,6 +1,7 @@
 package com.example.weather_app_compose.presentaion
 
 import Next7DaysForecastCard
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weather_app_card.WeatherForecastCard
 import com.example.weather_app_compose.R
+import com.example.weather_app_compose.data.remote.datasource.LocationRemoteDataSourceImp
+import com.example.weather_app_compose.data.remote.datasource.WeatherRemoteDataSourceImp
+import com.example.weather_app_compose.data.repository.WeatherRepositoryImp
+import com.example.weather_app_compose.logic.usecase.GetWeatherUseCase
 import com.example.weather_app_compose.ui.theme.skyBlue
 import com.example.weather_app_compose.ui.theme.textColorTitle
 import com.example.weather_app_compose.ui.theme.white
@@ -34,6 +39,7 @@ import com.example.weather_app_compose.presentaion.weather_component.WeatherStat
 @Preview
 @Composable
 fun WeatherScreen() {
+
     Box (
         modifier = Modifier
             .fillMaxSize()
@@ -74,7 +80,7 @@ fun WeatherScreen() {
                {
                items(7){
                    WeatherForecastCard(
-                       painterResource(R.drawable.weather_icon),
+                       painterResource(R.drawable.light_mainly_clear),
                        "27 C",
                        "11:00"
                    )
