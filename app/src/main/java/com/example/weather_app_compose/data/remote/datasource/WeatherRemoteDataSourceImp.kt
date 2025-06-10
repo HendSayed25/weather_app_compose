@@ -5,22 +5,11 @@ import com.example.weather_app_compose.data.remote.response.WeatherResponse
 import com.example.weather_app_compose.logic.entities.Location
 import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.*
 import io.ktor.client.statement.*
-import io.ktor.serialization.kotlinx.json.json
-import kotlinx.serialization.json.Json
-
-class WeatherRemoteDataSourceImp : IWeatherRemoteDataSource {
-
-    private val client = HttpClient {
-        install(ContentNegotiation) {
-            json(Json {
-                ignoreUnknownKeys = true
-                isLenient = true
-            })
-        }
-    }
+class WeatherRemoteDataSourceImp(
+    private val client : HttpClient
+) : IWeatherRemoteDataSource {
 
     override suspend fun getWeather(location: Location): WeatherResponse? {
         return try {

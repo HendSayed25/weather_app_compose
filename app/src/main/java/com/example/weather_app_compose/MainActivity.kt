@@ -21,15 +21,10 @@ import com.example.weather_app_compose.presentaion.WeatherScreen
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.mp.KoinPlatform.getKoin
 
 class MainActivity : ComponentActivity() {
-
-    // Dependencies, initialized lazily
-    private val locationRemoteDataSource by lazy { LocationRemoteDataSourceImp(applicationContext) }
-    private val locationRepository: ILocationRepository by lazy { LocationRepositoryImp(locationRemoteDataSource) }
-    private val weatherRemoteDataSource by lazy { WeatherRemoteDataSourceImp() }
-    private val weatherRepository by lazy { WeatherRepositoryImp(weatherRemoteDataSource) }
-    private val getWeatherUseCase by lazy { GetWeatherUseCase(weatherRepository, locationRepository) }
+    private val getWeatherUseCase: GetWeatherUseCase = getKoin().get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +34,6 @@ class MainActivity : ComponentActivity() {
         checkLocationPermissionsAndProceed()
 
         setContent {
-            // WeatherScreen is called directly without a ViewModel
             WeatherScreen()
         }
     }

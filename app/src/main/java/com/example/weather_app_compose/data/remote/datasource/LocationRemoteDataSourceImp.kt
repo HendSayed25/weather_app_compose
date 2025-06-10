@@ -12,7 +12,7 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 class LocationRemoteDataSourceImp(
-    private val context: Context
+    private val context: Context,
 ) : ILocationRemoteDataSource {
 
     private val fusedLocationProviderClient =

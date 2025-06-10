@@ -66,6 +66,8 @@ dependencies {
 
     // Dependency Injection - Koin
     implementation(libs.koin.core)
+    implementation ("io.insert-koin:koin-android:3.5.3")
+
 
     // DateTime
     implementation(libs.kotlinx.datetime)
