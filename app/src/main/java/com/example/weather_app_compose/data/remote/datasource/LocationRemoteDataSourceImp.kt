@@ -5,52 +5,51 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
 import androidx.core.content.ContextCompat
-import com.example.weather_app_compose.data.remote.response.WeatherResponse
 import com.example.weather_app_compose.logic.entities.Location
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlinx.serialization.json.Json
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
 class LocationRemoteDataSourceImp(
     private val context: Context
-) : ILocationRemoteDataSource{
+) : ILocationRemoteDataSource {
 
-    private val fusedLocationProvider = LocationServices.getFusedLocationProviderClient(context)
+    private val fusedLocationProviderClient =
+        LocationServices.getFusedLocationProviderClient(context)
 
-    override suspend fun getCurrentLocation(): Location  =
-        suspendCancellableCoroutine { cont ->
+    override suspend fun getCurrentLocation(): Location =
+        suspendCancellableCoroutine { continuation ->
 
-            val permission = ContextCompat.checkSelfPermission(
+            val permissionGranted = ContextCompat.checkSelfPermission(
                 context,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            )
+            ) == PackageManager.PERMISSION_GRANTED
 
-            if (permission != PackageManager.PERMISSION_GRANTED) {
-                cont.resumeWithException(SecurityException("Location permission not granted"))
+            if (!permissionGranted) {
+                continuation.resumeWithException(
+                    SecurityException("Location permission not granted")
+                )
                 return@suspendCancellableCoroutine
             }
 
-            fusedLocationProvider.lastLocation
+            fusedLocationProviderClient.lastLocation
                 .addOnSuccessListener { location ->
                     if (location != null) {
-                        cont.resume(
-                            Location(
-                                latitude = location.latitude,
-                                longitude = location.longitude
-                            )
+                        val result = Location(
+                            latitude = location.latitude,
+                            longitude = location.longitude
                         )
-                        Log.e("Location",
-                           location.toString()
-                        )
+                        Log.d("Location", "Location fetched: $result")
+                        continuation.resume(result)
                     } else {
-                        cont.resumeWithException(Exception("Location is null"))
+                        continuation.resumeWithException(
+                            Exception("Location is null")
+                        )
                     }
                 }
                 .addOnFailureListener { e ->
-                    cont.resumeWithException(e)
+                    continuation.resumeWithException(e)
                 }
-    }
-
+        }
 }

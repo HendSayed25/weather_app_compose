@@ -75,11 +75,15 @@ dependencies {
     implementation("io.ktor:ktor-client-cio:$ktorVersion")
     implementation("io.ktor:ktor-client-content-negotiation:$ktorVersion")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktorVersion")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
-   // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
+
+    // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
 
     // Logger
-    implementation("ch.qos.logback:logback-classic:1.4.14")
+  //  implementation("ch.qos.logback:logback-classic:1.4.14")
+    implementation("io.ktor:ktor-client-logging:$ktorVersion")
+
 
     //GPS
     implementation("com.google.android.gms:play-services-location:21.0.1")
