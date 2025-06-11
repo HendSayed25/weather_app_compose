@@ -72,8 +72,8 @@ fun WeatherForecastCard(
             tint = Color.Unspecified,
             modifier = Modifier
                 .size(60.dp)
-                .offset(y = (1).dp)
-                .align(Alignment.TopCenter)
+                .offset(y = (10).dp)
+               // .align(Alignment.TopCenter)
         )
     }
 }

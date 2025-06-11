@@ -35,23 +35,23 @@ fun MinMaxDegree(
     Box(
         Modifier.clip(RoundedCornerShape(50.dp))
             .background(lightGray).
-    padding(vertical = 8.dp, horizontal = 16.dp )
+    padding(vertical = 8.dp, horizontal = 18.dp )
     ){
         Row(verticalAlignment = Alignment.CenterVertically){
             Row(verticalAlignment = Alignment.CenterVertically){
-                CardContent(painterResource(R.drawable.arrow_top), maxTemp)
+                CardContent(painterResource(R.drawable.arrow_top), "$maxTemp°C")
             }
 
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 12.dp)
+                    .padding(horizontal = 10.dp)
                     .width(1.dp)
                     .height(16.dp)
                     .background(dividerColor)
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                CardContent(painterResource(R.drawable.arrow_down), minTemp)
+                CardContent(painterResource(R.drawable.arrow_down), "$minTemp°C")
             }
 
         }

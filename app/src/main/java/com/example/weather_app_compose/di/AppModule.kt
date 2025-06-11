@@ -54,7 +54,7 @@ val appModule = module {
     single{
         GetWeatherUseCase(
         weatherRepo = get(),
-        locationRepo = get()
+       // locationRepo = get()
     )}
 
     single { GetCurrentLocationUseCase(

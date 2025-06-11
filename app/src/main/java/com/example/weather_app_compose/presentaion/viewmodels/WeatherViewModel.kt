@@ -5,17 +5,19 @@ import androidx.lifecycle.viewModelScope
 import com.example.weather_app_compose.data.mapper.toUIModel
 import com.example.weather_app_compose.logic.entities.CurrentWeatherUI
 import com.example.weather_app_compose.logic.entities.Location
-import com.example.weather_app_compose.logic.entities.WeatherHour
-import com.example.weather_app_compose.logic.entities.WeatherState
 import com.example.weather_app_compose.logic.usecase.GetCityNameUseCase
 import com.example.weather_app_compose.logic.usecase.GetCurrentLocationUseCase
 import com.example.weather_app_compose.logic.usecase.GetWeatherUseCase
 import com.example.weather_app_compose.presentaion.models.DailyForecastItem
+import com.example.weather_app_compose.presentaion.models.HourlyItem
 import com.example.weather_app_compose.presentaion.models.WeatherUIModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class WeatherViewModel(
     private val weatherUseCase : GetWeatherUseCase,
@@ -35,8 +37,8 @@ class WeatherViewModel(
     private val _currentWeather = MutableStateFlow<CurrentWeatherUI?>(null)
     val currentWeather: StateFlow<CurrentWeatherUI?> = _currentWeather
 
-    private val _dayHours = MutableStateFlow<List<WeatherHour?>>(emptyList())
-    val dayHours = _dayHours.asStateFlow()
+    private val _dayHoursItems = MutableStateFlow<List<HourlyItem?>>(emptyList())
+    val dayHoursItems = _dayHoursItems.asStateFlow()
 
     private val _rain = MutableStateFlow("")
     val rain = _rain.asStateFlow()
@@ -57,10 +59,6 @@ class WeatherViewModel(
     val dailyForecastItems = _dailyForecastItems.asStateFlow()
 
 
-
-
-
-
     init{
         loadWeatherData()
     }
@@ -69,7 +67,7 @@ class WeatherViewModel(
         viewModelScope.launch {
             _location.value = getCurrentLocationUseCase.getCurrentLocation()
             _cityName.value = getCityNameUseCase.getCityName(_location.value)
-            val response =  weatherUseCase.getWeather()
+            val response =  weatherUseCase.getWeather(_location.value)
             val mappedData = response?.toUIModel()
             _weatherData.value = mappedData
 
@@ -86,18 +84,41 @@ class WeatherViewModel(
                 _wind.value = it.windSpeed.toInt().toString()
                 _uvIndex.value = it.uvIndex.toInt().toString()
                 _pressure.value = it.pressure.toInt().toString()
-                _humidity.value = it.humidity.toInt().toString()
-
-                _dailyForecastItems.value = it.dailyForecast
+                _humidity.value = it.humidity.toString()
 
 
+                _dailyForecastItems.value =  it.dailyForecast.map { forecast ->
+                    forecast.copy(
+                        day = getDayName(forecast.day)
+                    )
+                }
 
-                //  _dayHours.value = it.hourlyTemperatures.take(24)
-
-
+                _dayHoursItems.value = it.hourlyItems.map {dailyItem->
+                    dailyItem.copy(
+                        time = extractHourWithAmPm(dailyItem.time)
+                    )
+                }.distinctBy { it.time }
 
 
             }
         }
     }
+
+    private fun getDayName(dateString: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val date: Date? = inputFormat.parse(dateString)
+
+        val outputFormat = SimpleDateFormat("EEEE", Locale.getDefault()) // EEEE = Full day name
+        return if (date != null) outputFormat.format(date) else "Unknown"
+    }
+
+    private fun extractHourWithAmPm(timeString: String): String {
+        val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.getDefault())
+        val date = inputFormat.parse(timeString)
+
+        val outputFormat = SimpleDateFormat("h a", Locale.getDefault()) // 12-hour format with AM/PM
+        return if (date != null) outputFormat.format(date) else "Unknown"
+    }
+
+
 }

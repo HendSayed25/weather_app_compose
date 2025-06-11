@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -30,6 +31,7 @@ import com.example.weather_app_compose.R
 import com.example.weather_app_compose.logic.entities.CurrentWeatherUI
 import com.example.weather_app_compose.logic.entities.WeatherState
 import com.example.weather_app_compose.presentaion.models.DailyForecastItem
+import com.example.weather_app_compose.presentaion.models.HourlyItem
 import com.example.weather_app_compose.presentaion.viewmodels.WeatherViewModel
 import com.example.weather_app_compose.ui.theme.skyBlue
 import com.example.weather_app_compose.ui.theme.textColorTitle
@@ -56,6 +58,8 @@ fun WeatherScreen(
     val pressureValue by weatherViewModel.pressure.collectAsState()
     val humidityValue by weatherViewModel.humidity.collectAsState()
     val dailyForecastItems by weatherViewModel.dailyForecastItems.collectAsState()
+
+    val hourlyItems by weatherViewModel.dayHoursItems.collectAsState()
 
     val weatherStates : List<WeatherState> = listOf(
         WeatherState(
@@ -92,7 +96,8 @@ fun WeatherScreen(
       cityName = cityName,
       currentWeather = currentWeather,
       weatherStates = weatherStates,
-        dailyForecastItems = dailyForecastItems
+        dailyForecastItems = dailyForecastItems,
+        hourlyItems= hourlyItems
     )
 
 }
@@ -102,7 +107,8 @@ private fun WeatherContent(
     cityName: String,
     currentWeather: CurrentWeatherUI?,
     weatherStates : List<WeatherState>,
-    dailyForecastItems : List<DailyForecastItem>
+    dailyForecastItems : List<DailyForecastItem>,
+    hourlyItems : List<HourlyItem?>
 ){
     Box (
         modifier = Modifier
@@ -147,13 +153,13 @@ private fun WeatherContent(
                         .padding(horizontal = 16.dp),
                     horizontalArrangement = Arrangement.spacedBy(12.dp))
                 {
-                    items(24){
+                    items(hourlyItems){ item->
                         WeatherForecastCard(
-                            painterResource(R.drawable.light_mainly_clear),
-                            "27 C",
-                            "11:00"
+                            painterResource(item?.imageId?:R.drawable.light_fog),
+                            "${item?.temp?.toInt()} C",
+                            "${item?.time}"
                         )
-                    }// اعمل حدود لل object ويكون ليها rigid body وال collider for plane
+                    }
                 }
             }
 
@@ -178,7 +184,7 @@ private fun WeatherContent(
                 Next7DaysForecastCard(dailyForecastItems)
             }
             item{
-                Spacer(Modifier.height(50.dp))
+                Spacer(Modifier.height(40.dp))
             }
 
         }

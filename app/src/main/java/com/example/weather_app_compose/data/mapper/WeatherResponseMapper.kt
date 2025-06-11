@@ -2,7 +2,7 @@ package com.example.weather_app_compose.data.mapper
 
 import com.example.weather_app_compose.data.remote.response.WeatherResponse
 import com.example.weather_app_compose.presentaion.models.DailyForecastItem
-import com.example.weather_app_compose.presentaion.models.HourlyTempItem
+import com.example.weather_app_compose.presentaion.models.HourlyItem
 import com.example.weather_app_compose.presentaion.models.WeatherUIModel
 import java.util.Date
 
@@ -11,7 +11,7 @@ fun WeatherResponse.toUIModel(): WeatherUIModel? {
     val daily = daily ?: return null
     val hourly = hourly ?: return null
 
-    val hourlyTemps = mutableListOf<HourlyTempItem>()
+    val hourlyItems = mutableListOf<HourlyItem>()
     val hourlyImages = mutableListOf<Int>()
     val dailyForecast = mutableListOf<DailyForecastItem>()
 
@@ -25,11 +25,12 @@ fun WeatherResponse.toUIModel(): WeatherUIModel? {
         val code = codes.getOrNull(i)
 
         if (time != null && temp != null && code != null) {
-            hourlyTemps.add(
-                HourlyTempItem(
+            hourlyItems.add(
+                HourlyItem(
                     time = time,
                     temp = temp,
-                    weatherCode = code
+                    weatherCode = code,
+                    imageId = getWeatherIconRes(code,current.isDay)
                 )
             )
             hourlyImages.add(getWeatherIconRes(code, current.isDay ?: 1))
@@ -71,7 +72,7 @@ fun WeatherResponse.toUIModel(): WeatherUIModel? {
         pressure = current.surfacePressure ?: 0.0,
         rain = current.rain ?: 0.0,
         uvIndex = daily.uvIndexMax?.getOrNull(0) ?: 0.0,
-        hourlyTemperatures = hourlyTemps,
+        hourlyItems = hourlyItems,
         currentImageId = currentImageId,
         dailyForecast = dailyForecast,
         hourlyImages = hourlyImages

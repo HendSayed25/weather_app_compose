@@ -1,6 +1,5 @@
 package com.example.weather_app_compose
 
-import LocationRepositoryImp
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -11,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.weather_app_compose.logic.usecase.GetCurrentLocationUseCase
 import com.example.weather_app_compose.logic.usecase.GetWeatherUseCase
 import com.example.weather_app_compose.presentaion.WeatherScreen
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +20,7 @@ import org.koin.mp.KoinPlatform.getKoin
 
 class MainActivity : ComponentActivity() {
     private val getWeatherUseCase: GetWeatherUseCase = getKoin().get()
+    private val getCurrentLocationUseCase : GetCurrentLocationUseCase = getKoin().get()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,8 +69,8 @@ class MainActivity : ComponentActivity() {
             withContext(Dispatchers.IO) {
                 try {
                     Log.d("MainActivity", "Coroutine launched. Calling getWeatherUseCase.getWeather()...") // NEW LOG
-
-                    val weatherData = getWeatherUseCase.getWeather()
+                     val location = getCurrentLocationUseCase.getCurrentLocation()
+                     val weatherData = getWeatherUseCase.getWeather(location)
                     Log.e("WEATHER_DATA_LOG", "Fetched Weather Data: ${weatherData.toString()}")
                     // If you want to update UI from here, you would need mutable state
                 } catch (e: Exception) {

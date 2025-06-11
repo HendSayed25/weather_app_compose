@@ -10,17 +10,18 @@ data class WeatherUIModel(
     val pressure: Double,
     val rain: Double,
     val uvIndex : Double,
-    val hourlyTemperatures: List<HourlyTempItem>,
+    val hourlyItems: List<HourlyItem>,
     val hourlyImages: List<Int>,
     val dailyForecast: List<DailyForecastItem>,
     val currentImageId : Int,
 
 )
 
-data class HourlyTempItem(
+data class HourlyItem(
     val time: String,
     val temp: Double,
-    val weatherCode: Int
+    val weatherCode: Int,
+    val imageId :Int
 )
 
 data class DailyForecastItem(
