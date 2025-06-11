@@ -6,6 +6,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,8 +41,8 @@ fun WeatherForecastCard(
                 .height(110.dp)
                 .offset(y = 30.dp),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = white.copy(0.7f)),
-            border = BorderStroke(width = 1.dp, color = lightGray),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.onTertiary),
+            border = BorderStroke(width = 1.dp, color = MaterialTheme.colorScheme.onBackground),
         ) {
             Column(
                 modifier = Modifier
@@ -54,14 +55,14 @@ fun WeatherForecastCard(
                     text = temperature,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.W500,
-                    color = textColorTitle
+                    color =MaterialTheme.colorScheme.onSurface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = time,
                     fontSize = 16.sp,
                     fontWeight = FontWeight.W500,
-                    color = overlayColor,
+                    color = MaterialTheme.colorScheme.background,
                 )
             }
         }
@@ -73,7 +74,6 @@ fun WeatherForecastCard(
             modifier = Modifier
                 .size(60.dp)
                 .offset(y = (10).dp)
-               // .align(Alignment.TopCenter)
         )
     }
 }

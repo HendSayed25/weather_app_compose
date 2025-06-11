@@ -75,7 +75,8 @@ fun WeatherResponse.toUIModel(): WeatherUIModel? {
         hourlyItems = hourlyItems,
         currentImageId = currentImageId,
         dailyForecast = dailyForecast,
-        hourlyImages = hourlyImages
+        hourlyImages = hourlyImages,
+        isDay = current.isDay?: 0
     )
 }
 

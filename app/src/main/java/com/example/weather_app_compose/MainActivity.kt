@@ -7,20 +7,28 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.weather_app_compose.logic.usecase.GetCurrentLocationUseCase
 import com.example.weather_app_compose.logic.usecase.GetWeatherUseCase
 import com.example.weather_app_compose.presentaion.WeatherScreen
+import com.example.weather_app_compose.presentaion.viewmodels.WeatherViewModel
+import com.example.weather_app_compose.ui.theme.Weather_app_composeTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.mp.KoinPlatform.getKoin
 
 class MainActivity : ComponentActivity() {
     private val getWeatherUseCase: GetWeatherUseCase = getKoin().get()
     private val getCurrentLocationUseCase : GetCurrentLocationUseCase = getKoin().get()
+    private val weatherViewModel: WeatherViewModel by viewModel()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +38,11 @@ class MainActivity : ComponentActivity() {
         checkLocationPermissionsAndProceed()
 
         setContent {
-            WeatherScreen()
+            val isDay by weatherViewModel.isDay.collectAsState(initial = 1)
+
+            Weather_app_composeTheme(darkTheme = (isDay==0)) {
+                WeatherScreen()
+            }
         }
     }
 

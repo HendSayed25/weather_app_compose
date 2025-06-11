@@ -25,6 +25,9 @@ class WeatherViewModel(
     private val getCurrentLocationUseCase: GetCurrentLocationUseCase
 ) : ViewModel(){
 
+    private val _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean> = _isLoading
+
     private val _cityName = MutableStateFlow("")
     val cityName = _cityName.asStateFlow()
 
@@ -33,6 +36,9 @@ class WeatherViewModel(
 
     private val _location = MutableStateFlow(Location(0.0,0.0))
     val location = _location.asStateFlow()
+
+    private val _isDay =MutableStateFlow(0)
+    val isDay = _isDay.asStateFlow()
 
     private val _currentWeather = MutableStateFlow<CurrentWeatherUI?>(null)
     val currentWeather: StateFlow<CurrentWeatherUI?> = _currentWeather
@@ -64,42 +70,50 @@ class WeatherViewModel(
     }
 
     private fun loadWeatherData(){
+        _isLoading.value = true
+
         viewModelScope.launch {
-            _location.value = getCurrentLocationUseCase.getCurrentLocation()
-            _cityName.value = getCityNameUseCase.getCityName(_location.value)
-            val response =  weatherUseCase.getWeather(_location.value)
-            val mappedData = response?.toUIModel()
-            _weatherData.value = mappedData
+            try {
+                _location.value = getCurrentLocationUseCase.getCurrentLocation()
+                _cityName.value = getCityNameUseCase.getCityName(_location.value)
+                val response =  weatherUseCase.getWeather(_location.value)
+                val mappedData = response?.toUIModel()
+                _weatherData.value = mappedData
 
-            mappedData?.let {
-                _currentWeather.value = CurrentWeatherUI(
-                    iconResId = it.currentImageId,
-                    temperature = it.currentTemp.toInt().toString(),
-                    description = it.weatherDescription,
-                    maxTemp = it.maxTemp.toInt(),
-                    minTemp = it.minTemp.toInt(),
-                )
-
-                _rain.value = it.rain.toInt().toString()
-                _wind.value = it.windSpeed.toInt().toString()
-                _uvIndex.value = it.uvIndex.toInt().toString()
-                _pressure.value = it.pressure.toInt().toString()
-                _humidity.value = it.humidity.toString()
-
-
-                _dailyForecastItems.value =  it.dailyForecast.map { forecast ->
-                    forecast.copy(
-                        day = getDayName(forecast.day)
+                mappedData?.let {
+                    _currentWeather.value = CurrentWeatherUI(
+                        iconResId = it.currentImageId,
+                        temperature = it.currentTemp.toInt().toString(),
+                        description = it.weatherDescription,
+                        maxTemp = it.maxTemp.toInt(),
+                        minTemp = it.minTemp.toInt(),
                     )
-                }
 
-                _dayHoursItems.value = it.hourlyItems.map {dailyItem->
-                    dailyItem.copy(
-                        time = extractHourWithAmPm(dailyItem.time)
-                    )
-                }.distinctBy { it.time }
+                    _isDay.value = it.isDay
+
+                    _rain.value = it.rain.toInt().toString()
+                    _wind.value = it.windSpeed.toInt().toString()
+                    _uvIndex.value = it.uvIndex.toInt().toString()
+                    _pressure.value = it.pressure.toInt().toString()
+                    _humidity.value = it.humidity.toString()
 
 
+                    _dailyForecastItems.value =  it.dailyForecast.map { forecast ->
+                        forecast.copy(
+                            day = getDayName(forecast.day)
+                        )
+                    }
+
+                    _dayHoursItems.value = it.hourlyItems.map {dailyItem->
+                        dailyItem.copy(
+                            time = extractHourWithAmPm(dailyItem.time)
+                        )
+                    }.distinctBy { it.time }
+            }
+            }catch (e:Exception){
+                throw e
+            }finally {
+                _isLoading.value = false
             }
         }
     }

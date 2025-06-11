@@ -14,6 +14,7 @@ data class WeatherUIModel(
     val hourlyImages: List<Int>,
     val dailyForecast: List<DailyForecastItem>,
     val currentImageId : Int,
+    val isDay : Int
 
 )
 

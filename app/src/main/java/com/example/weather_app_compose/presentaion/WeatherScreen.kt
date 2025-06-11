@@ -3,6 +3,7 @@ package com.example.weather_app_compose.presentaion
 import Next7DaysForecastCard
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
@@ -13,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -58,8 +61,9 @@ fun WeatherScreen(
     val pressureValue by weatherViewModel.pressure.collectAsState()
     val humidityValue by weatherViewModel.humidity.collectAsState()
     val dailyForecastItems by weatherViewModel.dailyForecastItems.collectAsState()
-
     val hourlyItems by weatherViewModel.dayHoursItems.collectAsState()
+    val isDay by weatherViewModel.isDay.collectAsState()
+    val isLoading by weatherViewModel.isLoading.collectAsState()
 
     val weatherStates : List<WeatherState> = listOf(
         WeatherState(
@@ -90,16 +94,23 @@ fun WeatherScreen(
         ),
 
         )
-
-
-    WeatherContent(
-      cityName = cityName,
-      currentWeather = currentWeather,
-      weatherStates = weatherStates,
-        dailyForecastItems = dailyForecastItems,
-        hourlyItems= hourlyItems
-    )
-
+    if (isLoading) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+    } else {
+        WeatherContent(
+            cityName = cityName,
+            currentWeather = currentWeather,
+            weatherStates = weatherStates,
+            dailyForecastItems = dailyForecastItems,
+            hourlyItems= hourlyItems,
+            isDay= isDay
+        )
+    }
 }
 
 @Composable
@@ -108,7 +119,8 @@ private fun WeatherContent(
     currentWeather: CurrentWeatherUI?,
     weatherStates : List<WeatherState>,
     dailyForecastItems : List<DailyForecastItem>,
-    hourlyItems : List<HourlyItem?>
+    hourlyItems : List<HourlyItem?>,
+    isDay : Int
 ){
     Box (
         modifier = Modifier
@@ -116,9 +128,9 @@ private fun WeatherContent(
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        skyBlue,
-                        white
-                    )
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.onPrimary,
+                        )
                 )
             )
             .padding(top = 15.dp),
@@ -129,8 +141,8 @@ private fun WeatherContent(
             horizontalAlignment = Alignment.CenterHorizontally,
 
             ) {
-            item { LocationDesign(cityName) }
-            item { CurrentWeather(currentWeather) }
+            item { LocationDesign(cityName,isDay) }
+            item { CurrentWeather(currentWeather,isDay) }
             item {
                 WeatherStateContent(weatherStates)
             }
@@ -139,7 +151,7 @@ private fun WeatherContent(
                     text = "Today",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.W600,
-                    color = textColorTitle,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(bottom = 5.dp, start = 12.dp)
                         .fillMaxWidth(),
@@ -172,7 +184,7 @@ private fun WeatherContent(
                     text = "Next 7 days",
                     fontSize = 20.sp,
                     fontWeight = FontWeight.W600,
-                    color = textColorTitle,
+                    color = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier
                         .padding(start = 12.dp, bottom = 5.dp)
                         .fillMaxWidth(),

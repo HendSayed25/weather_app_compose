@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -30,16 +31,17 @@ import com.example.weather_app_compose.ui.theme.veryLightGray
 @Composable
 fun MinMaxDegree(
     maxTemp : String,
-    minTemp : String
+    minTemp : String,
+    isDay : Int
 ) {
     Box(
         Modifier.clip(RoundedCornerShape(50.dp))
-            .background(lightGray).
+            .background(MaterialTheme.colorScheme.onBackground).
     padding(vertical = 8.dp, horizontal = 18.dp )
     ){
         Row(verticalAlignment = Alignment.CenterVertically){
             Row(verticalAlignment = Alignment.CenterVertically){
-                CardContent(painterResource(R.drawable.arrow_top), "$maxTemp°C")
+                CardContent(painterResource(if (isDay == 1) R.drawable.arrow_top else R.drawable.arrow_top_drak), "$maxTemp°C",)
             }
 
             Box(
@@ -47,11 +49,11 @@ fun MinMaxDegree(
                     .padding(horizontal = 10.dp)
                     .width(1.dp)
                     .height(16.dp)
-                    .background(dividerColor)
+                    .background(MaterialTheme.colorScheme.outline)
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                CardContent(painterResource(R.drawable.arrow_down), "$minTemp°C")
+                CardContent(painterResource(if (isDay == 1) R.drawable.arrow_down else R.drawable.arrow_down_dark), "$minTemp°C")
             }
 
         }
@@ -73,6 +75,6 @@ private fun CardContent(
         fontSize = 16.sp,
         fontWeight = FontWeight.W500,
         modifier = Modifier.padding(start = 4.dp),
-        color = veryLightGray
+        color = MaterialTheme.colorScheme.surface
     )
 }

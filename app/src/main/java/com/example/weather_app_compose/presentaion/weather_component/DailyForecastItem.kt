@@ -3,6 +3,7 @@ package com.example.weather_app_compose.presentaion.weather_component
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -40,7 +41,7 @@ fun DailyForecastItem(
                 text = day,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.W500,
-                color = overlayColor,
+                color = MaterialTheme.colorScheme.background,
                 modifier = Modifier.weight(1f)
             )
 
@@ -59,25 +60,25 @@ fun DailyForecastItem(
                 Icon(
                     painter = painterResource(id = R.drawable.arrow_top),
                     contentDescription = "Max temp icon",
-                    tint = textColorTitle,
+                    tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(16.dp)
                 )
                 Text(
                     text = maxTemp,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.W500,
-                    color = textColorTitle
+                    color = MaterialTheme.colorScheme.onSurface
                 )
                 Box(
                     modifier = Modifier.padding(start = 4.dp, end = 4.dp)
                         .width(1.dp)
                         .height(16.dp)
-                        .background(dividerColor)
+                        .background(MaterialTheme.colorScheme.outline)
                 )
                 Icon(
                     painter = painterResource(id = R.drawable.arrow_down),
                     contentDescription = "Min temp icon",
-                    tint = textColorTitle,
+                    tint = MaterialTheme.colorScheme.onSurface,
                     modifier = Modifier.size(16.dp)
                 )
                 Spacer(Modifier.width(2.dp))
@@ -86,7 +87,7 @@ fun DailyForecastItem(
                     text = minTemp,
                     fontSize = 14.sp,
                     fontWeight = FontWeight.W500,
-                    color = textColorTitle
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         }
@@ -96,7 +97,7 @@ fun DailyForecastItem(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(1.dp)
-                    .background(lightGray)
+                    .background(MaterialTheme.colorScheme.onBackground)
                     .padding(horizontal = 16.dp)
             )
         }

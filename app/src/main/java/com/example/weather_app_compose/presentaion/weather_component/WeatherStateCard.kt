@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,6 +21,7 @@ import com.example.weather_app_compose.logic.entities.WeatherState
 import com.example.weather_app_compose.ui.theme.overlayColor
 import com.example.weather_app_compose.ui.theme.valueOfCard
 import com.example.weather_app_compose.ui.theme.white
+import com.example.weather_app_compose.ui.theme.whiteWith70Alpha
 
 @Composable
 fun WeatherStateCard(
@@ -28,7 +30,7 @@ fun WeatherStateCard(
 ){
 
     Box(
-       modifier= modifier.background(white.copy(0.7f), shape = RoundedCornerShape(24.dp)),
+       modifier= modifier.background(MaterialTheme.colorScheme.onTertiary, shape = RoundedCornerShape(24.dp)),
         contentAlignment = Alignment.TopCenter
     ) {
     Column (
@@ -46,12 +48,12 @@ fun WeatherStateCard(
             text = weatherStateData.value,
             fontWeight = FontWeight.W500,
             fontSize = 20.sp,
-            color = valueOfCard
+            color = MaterialTheme.colorScheme.tertiary
         )
         Spacer(Modifier.height(2.dp))
         Text(
             text = weatherStateData.state,
-            color = overlayColor,
+            color = MaterialTheme.colorScheme.background,
             fontWeight = FontWeight.W400,
             fontSize = 14.sp,
         )
