@@ -64,9 +64,14 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
 
+    implementation ("androidx.compose.material3:material3:1.2.1")
+
+
     // Dependency Injection - Koin
     implementation(libs.koin.core)
     implementation ("io.insert-koin:koin-android:3.5.3")
+    implementation ("io.insert-koin:koin-androidx-compose:3.5.3")
+
 
 
     // DateTime
@@ -80,15 +85,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
 
-    // implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0")
-
-    // Logger
-  //  implementation("ch.qos.logback:logback-classic:1.4.14")
     implementation("io.ktor:ktor-client-logging:$ktorVersion")
 
 
     //GPS
     implementation("com.google.android.gms:play-services-location:21.0.1")
+    implementation(libs.androidx.core.i18n)
+    implementation(libs.places)
 
 
     // Testing

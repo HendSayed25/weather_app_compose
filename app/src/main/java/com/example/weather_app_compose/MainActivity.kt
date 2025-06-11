@@ -8,14 +8,9 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.weather_app_compose.data.remote.datasource.LocationRemoteDataSourceImp
-import com.example.weather_app_compose.data.remote.datasource.WeatherRemoteDataSourceImp
-import com.example.weather_app_compose.data.repository.WeatherRepositoryImp
-import com.example.weather_app_compose.logic.repository.ILocationRepository
 import com.example.weather_app_compose.logic.usecase.GetWeatherUseCase
 import com.example.weather_app_compose.presentaion.WeatherScreen
 import kotlinx.coroutines.Dispatchers

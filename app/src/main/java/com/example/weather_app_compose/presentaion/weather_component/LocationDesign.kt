@@ -15,7 +15,9 @@ import com.example.weather_app_compose.R
 import com.example.weather_app_compose.ui.theme.darkGray
 
 @Composable
-fun LocationDesign(){
+fun LocationDesign(
+    cityName : String
+){
     Row(modifier = Modifier.padding(start = 133.dp, end = 133.dp, top = 50.dp, bottom = 12.dp)){
 
         Image(
@@ -24,7 +26,7 @@ fun LocationDesign(){
         )
         Box (Modifier.padding(start = 4.dp, top = 2.dp, bottom = 2.dp)){
             Text(
-                text = "Cairo" ,//will change based in location,
+                text = cityName ,//will change based in location,
                 fontWeight = FontWeight.W500,
                 fontSize = 16.sp,
                 color = darkGray

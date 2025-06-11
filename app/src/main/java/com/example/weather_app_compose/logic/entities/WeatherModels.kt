@@ -19,8 +19,12 @@ data class WeatherDay(
     val minTemperature : String
 )
 
-data class CurrentWeather(
+data class CurrentWeatherUI(
     val iconResId: Int,
     val temperature: String,
     val description: String,
+    val maxTemp :Int,
+    val minTemp : Int
 )
+
+

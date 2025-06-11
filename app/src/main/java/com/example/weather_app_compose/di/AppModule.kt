@@ -15,10 +15,12 @@ import com.example.weather_app_compose.logic.repository.IWeatherRepository
 import com.example.weather_app_compose.logic.usecase.GetCityNameUseCase
 import com.example.weather_app_compose.logic.usecase.GetCurrentLocationUseCase
 import com.example.weather_app_compose.logic.usecase.GetWeatherUseCase
+import com.example.weather_app_compose.presentaion.viewmodels.WeatherViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
@@ -76,5 +78,14 @@ val appModule = module {
             }
         }
     }
+
+    //view models
+    viewModel {
+        WeatherViewModel(
+            weatherUseCase = get(),
+            getCityNameUseCase = get(),
+            getCurrentLocationUseCase = get(),
+        ) }
+
 
 }

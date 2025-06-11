@@ -2,7 +2,7 @@ package com.example.weather_app_compose.data.mapper
 
 import com.example.weather_app_compose.R
 
-fun getWeatherIconRes(code: Int, isDay: Int): Int {
+fun getWeatherIconRes(code: Int, isDay: Int?): Int {
     return when (code) {
         0 -> if (isDay == 1) R.drawable.light_clear_sky else R.drawable.night_clear_sky
         1, 2 -> if (isDay == 1) R.drawable.light_mainly_clear else R.drawable.night_mainly_clear
@@ -46,7 +46,7 @@ fun getWeatherIconRes(code: Int, isDay: Int): Int {
     }
 }
 
-fun getWeatherDescriptionFromCode(weatherCode: Int): String {
+fun getWeatherDescriptionFromCode(weatherCode: Int?): String {
     return when (weatherCode) {
         0 -> "Clear sky"
         1 -> "Mainly clear"

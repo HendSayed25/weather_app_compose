@@ -16,6 +16,8 @@ activityCompose = "1.10.1"
 composeBom = "2024.09.00"
 lifecycleViewmodelKtx = "2.9.1"
 logbackClassic = "1.5.6"
+coreI18n = "1.0.0"
+places = "4.3.1"
 
 
 [libraries]
@@ -42,6 +44,8 @@ kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serializa
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorVersion" }
 ktor-client-core = { module = "io.ktor:ktor-client-core", version.ref = "ktorVersion" }
 logback-classic = { module = "ch.qos.logback:logback-classic", version.ref = "logbackClassic" }
+androidx-core-i18n = { group = "androidx.core", name = "core-i18n", version.ref = "coreI18n" }
+places = { group = "com.google.android.libraries.places", name = "places", version.ref = "places" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.example.weather_app_compose.R
 import com.example.weather_app_compose.ui.theme.darkGray
@@ -27,7 +28,10 @@ import com.example.weather_app_compose.ui.theme.lightGray
 import com.example.weather_app_compose.ui.theme.veryLightGray
 
 @Composable
-fun MinMaxDegree() {
+fun MinMaxDegree(
+    maxTemp : String,
+    minTemp : String
+) {
     Box(
         Modifier.clip(RoundedCornerShape(50.dp))
             .background(lightGray).
@@ -35,7 +39,7 @@ fun MinMaxDegree() {
     ){
         Row(verticalAlignment = Alignment.CenterVertically){
             Row(verticalAlignment = Alignment.CenterVertically){
-                CardContent(painterResource(R.drawable.arrow_top),"30 C")
+                CardContent(painterResource(R.drawable.arrow_top), maxTemp)
             }
 
             Box(
@@ -47,7 +51,7 @@ fun MinMaxDegree() {
             )
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                CardContent(painterResource(R.drawable.arrow_down), "24 C")
+                CardContent(painterResource(R.drawable.arrow_down), minTemp)
             }
 
         }

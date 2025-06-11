@@ -14,39 +14,10 @@ import com.example.weather_app_compose.R
 import com.example.weather_app_compose.logic.entities.WeatherState
 
 
-val weatherStates : List<WeatherState> = listOf(
-    WeatherState(
-        iconId = R.drawable.fast_wind,
-        value = "13 km/h",
-        state = "wind"
-    ),
-    WeatherState(
-        iconId = R.drawable.humidity,
-        value = "24 %",
-        state = "Humidity"
-    ), WeatherState(
-        iconId = R.drawable.rain,
-        value = "2 %",
-        state = "Rain"
-    ), WeatherState(
-        iconId = R.drawable.uv,
-        value = "2",
-        state = "UV Index"
-    ), WeatherState(
-        iconId = R.drawable.arrow_down_blue,
-        value = "1012 hPa",
-        state = "Pressure"
-    ), WeatherState(
-        iconId = R.drawable.temperature,
-        value = "22 C",
-        state = "Feels like"
-    ),
-
-    )
-
-
 @Composable
-fun WeatherStateContent() {
+fun WeatherStateContent(
+    weatherStates :List<WeatherState>
+) {
     Column (
         verticalArrangement = Arrangement.spacedBy(6.dp),
         modifier = Modifier
