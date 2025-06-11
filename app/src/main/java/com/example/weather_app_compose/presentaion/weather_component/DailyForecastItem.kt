@@ -15,10 +15,6 @@ import androidx.compose.ui.text.font.FontWeight
 import com.example.weather_app_compose.R
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weather_app_compose.ui.theme.dividerColor
-import com.example.weather_app_compose.ui.theme.lightGray
-import com.example.weather_app_compose.ui.theme.overlayColor
-import com.example.weather_app_compose.ui.theme.textColorTitle
 
 
 @Composable
@@ -91,16 +87,7 @@ fun DailyForecastItem(
                 )
             }
         }
-        if (day != "Sunday") {
-            Spacer(modifier = Modifier.height(1.dp))
-            Box(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(1.dp)
-                    .background(MaterialTheme.colorScheme.onBackground)
-                    .padding(horizontal = 16.dp)
-            )
-        }
+
     }
 }
 

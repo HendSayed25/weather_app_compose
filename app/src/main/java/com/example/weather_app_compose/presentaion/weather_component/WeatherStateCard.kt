@@ -18,10 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weather_app_compose.logic.entities.WeatherState
-import com.example.weather_app_compose.ui.theme.overlayColor
-import com.example.weather_app_compose.ui.theme.valueOfCard
-import com.example.weather_app_compose.ui.theme.white
-import com.example.weather_app_compose.ui.theme.whiteWith70Alpha
+
 
 @Composable
 fun WeatherStateCard(

@@ -12,8 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.example.weather_app_compose.presentaion.models.DailyForecastItem
-import com.example.weather_app_compose.ui.theme.lightGray
-import com.example.weather_app_compose.ui.theme.white
 import com.example.weather_app_compose.presentaion.weather_component.DailyForecastItem
 
 

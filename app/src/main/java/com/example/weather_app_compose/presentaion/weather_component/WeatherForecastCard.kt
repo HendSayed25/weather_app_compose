@@ -1,4 +1,4 @@
-package com.example.weather_app_card
+package com.example.weather_app_compose.presentaion.weather_component
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
@@ -16,10 +16,6 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.weather_app_compose.ui.theme.lightGray
-import com.example.weather_app_compose.ui.theme.overlayColor
-import com.example.weather_app_compose.ui.theme.textColorTitle
-import com.example.weather_app_compose.ui.theme.white
 
 
 @Composable
