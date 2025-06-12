@@ -34,8 +34,8 @@ fun Next7DaysForecastCard(
                 DailyForecastItem(
                     day = dailyForecastItems[i].day,
                     iconPainter = painterResource(dailyForecastItems[i].imageId),
-                    maxTemp = "${dailyForecastItems[i].maxTemp}°C",
-                    minTemp = "${dailyForecastItems[i].minTemp}°C"
+                    maxTemp = dailyForecastItems[i].maxTemp,
+                    minTemp = dailyForecastItems[i].minTemp
                 )
             }
         }

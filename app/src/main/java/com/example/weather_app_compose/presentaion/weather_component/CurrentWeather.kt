@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weather_app_compose.R
 import com.example.weather_app_compose.logic.entities.CurrentWeatherUI
+import com.example.weather_app_compose.ui.theme.white
 
 
 @Composable
@@ -38,7 +39,7 @@ fun CurrentWeather(
         if (!scrolled) {
             Column(
                 modifier = Modifier
-                    .fillMaxWidth().shadow(20.dp, shape = CircleShape, clip = false)
+                    .fillMaxWidth()
                     .padding(top = 16.dp, bottom = 16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -58,7 +59,7 @@ fun CurrentWeather(
         } else {
             Row(
                 modifier = Modifier
-                    .fillMaxWidth().shadow(20.dp, shape = CircleShape, clip = false)
+                    .fillMaxWidth()
                     .padding(horizontal = 24.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {

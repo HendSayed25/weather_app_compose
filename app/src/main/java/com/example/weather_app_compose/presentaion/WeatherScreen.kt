@@ -166,7 +166,7 @@ private fun WeatherContent(
                     items(hourlyItems){ item->
                         WeatherForecastCard(
                             painterResource(item?.imageId?:R.drawable.light_fog),
-                            "${item?.temp?.toInt()} C",
+                            item?.temp?.toInt(),
                             "${item?.time}"
                         )
                     }

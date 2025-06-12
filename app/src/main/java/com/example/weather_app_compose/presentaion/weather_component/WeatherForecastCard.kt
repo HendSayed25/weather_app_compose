@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun WeatherForecastCard(
     iconPainter: Painter,
-    temperature: String,
+    temperature: Int?,
     time: String,
     modifier: Modifier = Modifier
 ) {
@@ -48,7 +48,7 @@ fun WeatherForecastCard(
             ) {
                 Spacer(modifier = Modifier.height(30.dp))
                 Text(
-                    text = temperature,
+                    text = "${temperature}°C",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.W500,
                     color =MaterialTheme.colorScheme.onSurface

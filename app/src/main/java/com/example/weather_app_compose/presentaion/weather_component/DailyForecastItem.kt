@@ -21,8 +21,8 @@ import androidx.compose.ui.unit.sp
 fun DailyForecastItem(
     day: String,
     iconPainter: Painter,
-    maxTemp: String,
-    minTemp: String,
+    maxTemp: Double,
+    minTemp: Double,
     modifier: Modifier = Modifier
 ) {
     Column {
@@ -60,7 +60,7 @@ fun DailyForecastItem(
                     modifier = Modifier.size(16.dp)
                 )
                 Text(
-                    text = maxTemp,
+                    text = "${maxTemp.toInt()}°C",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.W500,
                     color = MaterialTheme.colorScheme.onSurface
@@ -80,7 +80,7 @@ fun DailyForecastItem(
                 Spacer(Modifier.width(2.dp))
 
                 Text(
-                    text = minTemp,
+                    text = "${minTemp.toInt()}°C",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.W500,
                     color = MaterialTheme.colorScheme.onSurface
